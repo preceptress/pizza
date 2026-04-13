@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ember & Stone | Wood-Fired Pizzeria</title>
+  <meta name="description"
+    content="A luxury Bootstrap pizzeria website with cinematic design, premium menu sections, strong calls to action, and a polished NYC-inspired feel." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-soft: #121212;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-strong: rgba(255, 255, 255, 0.1);
+      --line: rgba(255, 255, 255, 0.12);
+      --text: #f6f1e8;
+      --muted: #b9afa2;
+      --gold: #d8a25e;
+      --gold-2: #f0c78b;
+      --red: #8f2317;
+      --red-2: #cb4b2a;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius-md: 18px;
+      --max: 1280px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(216, 162, 94, 0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(203, 75, 42, 0.14), transparent 24%),
+        linear-gradient(180deg, #060606 0%, #0b0b0b 35%, #111111 100%);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container-premium {
+      width: min(100% - 2rem, var(--max));
+      margin: 0 auto;
+    }
+
+    .navbar {
+      background: rgba(6, 6, 6, 0.72) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--red-2));
+      color: #130d07;
+      font-weight: 800;
+      box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.82) !important;
+      font-weight: 600;
+      margin-left: 0.5rem;
+      position: relative;
+    }
+
+    .nav-link::after {
+      content: "";
+      position: absolute;
+      left: 0.5rem;
+      right: 0.5rem;
+      bottom: 0.2rem;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      transform: scaleX(1);
+    }
+
+    .btn-luxe,
+    .btn-outline-luxe {
+      border-radius: 999px;
+      padding: 0.95rem 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+    }
+
+    .btn-luxe {
+      color: #170f07;
+      border: none;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold), var(--red-2));
+      box-shadow: 0 16px 34px rgba(216, 162, 94, 0.22);
+    }
+
+    .btn-luxe:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 44px rgba(216, 162, 94, 0.3);
+    }
+
+    .btn-outline-luxe {
+      color: var(--text);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .btn-outline-luxe:hover {
+      transform: translateY(-2px);
+      border-color: rgba(216, 162, 94, 0.55);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 6rem;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(6, 6, 6, 0.92) 10%, rgba(6, 6, 6, 0.6) 45%, rgba(6, 6, 6, 0.78) 100%),
+        url('https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1800&q=80') center center / cover no-repeat;
+      transform: scale(1.04);
+      animation: heroZoom 16s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 70% 25%, rgba(240, 199, 139, 0.12), transparent 20%);
+      pointer-events: none;
+    }
+
+    @keyframes heroZoom {
+      from {
+        transform: scale(1.04);
+      }
+
+      to {
+        transform: scale(1.1);
+      }
+    }
+
+    .hero-content,
+    .hero-card {
+      position: relative;
+      z-index: 2;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--gold-2);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--red-2));
+      box-shadow: 0 0 18px rgba(216, 162, 94, 0.5);
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6.2rem);
+      line-height: 0.95;
+      margin: 1.2rem 0 1rem;
+      max-width: 8.5ch;
+    }
+
+    .hero-lead {
+      font-size: clamp(1.05rem, 1.75vw, 1.25rem);
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 42rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2.4rem;
+      max-width: 640px;
+    }
+
+    .stat-chip {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.045);
+      border-radius: 18px;
+      padding: 1rem 1rem 0.95rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .stat-chip .value {
+      display: block;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat-chip .label {
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-xl);
+      padding: 1.4rem;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+      backdrop-filter: blur(16px);
+      max-width: 440px;
+      margin-left: auto;
+    }
+
+    .mini-label {
+      color: var(--gold-2);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.76rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    .featured-pizza {
+      border-radius: 22px;
+      overflow: hidden;
+      position: relative;
+      min-height: 320px;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.68)),
+        url('https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      display: flex;
+      align-items: end;
+      padding: 1.25rem;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .featured-pizza h3 {
+      margin-bottom: 0.35rem;
+      font-size: 1.8rem;
+    }
+
+    .featured-pizza p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.84);
+      max-width: 24rem;
+    }
+
+    .price-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 82px;
+      padding: 0.7rem 0.95rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      color: #1a1208;
+      font-weight: 800;
+      margin-top: 1rem;
+    }
+
+    section {
+      position: relative;
+      padding: 5.75rem 0;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      margin: 0.25rem 0 0;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 42rem;
+      line-height: 1.75;
+    }
+
+    .glass-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.025));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .menu-card,
+    .story-card,
+    .review-card,
+    .info-card {
+      height: 100%;
+      padding: 1.4rem;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .menu-card:hover,
+    .story-card:hover,
+    .review-card:hover,
+    .info-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(216, 162, 94, 0.28);
+      box-shadow: 0 22px 44px rgba(0, 0, 0, 0.32);
+    }
+
+    .menu-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 0.75rem;
+    }
+
+    .menu-card h3,
+    .story-card h3,
+    .review-card h3,
+    .info-card h3 {
+      font-size: 1.45rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .menu-card p,
+    .story-card p,
+    .review-card p,
+    .info-card p,
+    .menu-meta,
+    .hours-list li,
+    .contact-list li {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .menu-price {
+      color: var(--gold-2);
+      font-weight: 800;
+      font-size: 1.15rem;
+      white-space: nowrap;
+    }
+
+    .menu-meta {
+      font-size: 0.9rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      margin-top: 0.95rem;
+    }
+
+    .signature-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .signature-chip {
+      padding: 1rem 1.1rem;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      text-align: center;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .story-wrap {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 1.25rem;
+    }
+
+    .story-image {
+      min-height: 520px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.55)),
+        url('https://images.unsplash.com/photo-1520201163981-8cc95007dd2e?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .quote-mark {
+      font-size: 3rem;
+      line-height: 1;
+      color: var(--gold);
+      opacity: 0.8;
+    }
+
+    .review-card small {
+      color: var(--gold-2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .reservation-band {
+      overflow: hidden;
+      padding: 0;
+      background:
+        linear-gradient(125deg, rgba(143, 35, 23, 0.9), rgba(216, 162, 94, 0.92)),
+        #111;
+    }
+
+    .reservation-inner {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .reservation-copy,
+    .reservation-form-wrap {
+      padding: 2rem;
+    }
+
+    .reservation-copy {
+      background: linear-gradient(180deg, rgba(10, 10, 10, 0.16), rgba(10, 10, 10, 0.32));
+    }
+
+    .reservation-copy h2,
+    .reservation-copy p,
+    .reservation-copy .mini-list li {
+      color: #fffaf3;
+    }
+
+    .reservation-copy p {
+      opacity: 0.88;
+      line-height: 1.8;
+    }
+
+    .mini-list {
+      padding-left: 1.1rem;
+      margin: 1.25rem 0 0;
+    }
+
+    .mini-list li {
+      margin-bottom: 0.55rem;
+    }
+
+    .reservation-form-wrap {
+      background: rgba(10, 10, 10, 0.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .form-control,
+    .form-select {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 0.95rem 1rem;
+      border-radius: 16px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border-color: rgba(216, 162, 94, 0.45);
+      box-shadow: 0 0 0 0.2rem rgba(216, 162, 94, 0.12);
+    }
+
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.45);
+    }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 1.25rem;
+    }
+
+    .hours-list,
+    .contact-list {
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+    }
+
+    .hours-list li,
+    .contact-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .contact-map {
+      min-height: 100%;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.6)),
+        url('https://images.unsplash.com/photo-1485879136085-49884fe8621c?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: end;
+      padding: 1.5rem;
+    }
+
+    .footer {
+      padding: 2rem 0 3rem;
+      color: rgba(255, 255, 255, 0.62);
+    }
+
+    .footer-shell {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .floating-cta {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 1040;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.85rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--gold), var(--red-2));
+      color: #1a1008;
+      font-weight: 800;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.4);
+    }
+
+    .floating-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 991.98px) {
+      .hero {
+        min-height: auto;
+        padding: 8rem 0 4rem;
+      }
+
+      .hero-card {
+        margin: 2rem 0 0;
+        max-width: none;
+      }
+
+      .story-wrap,
+      .contact-wrap,
+      .reservation-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .story-image {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+
+      .hero-stats,
+      .signature-strip,
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-heading {
+        margin-bottom: 1.5rem;
+      }
+
+      .reservation-copy,
+      .reservation-form-wrap,
+      .menu-card,
+      .story-card,
+      .review-card,
+      .info-card {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container-premium">
+      <div class="d-flex align-items-center gap-2">
+        <span class="brand-mark">E</span>
+        <a class="navbar-brand" href="#home">EMBER &amp; STONE</a>
+      </div>
+
+      <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+        data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="#menu">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#story">Story</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="#visit">Visit</a></li>
+          <li class="nav-item ms-lg-3 mt-3 mt-lg-0"><a class="btn btn-luxe" href="#reserve">Reserve a Table</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="container-premium">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7 hero-content reveal visible">
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Wood-Fired Since 1998 · Manhattan Style
+          </div>
+          <h1>Luxury pizza with a cinematic soul.</h1>
+          <p class="hero-lead">
+            Ember &amp; Stone brings together hand-stretched dough, slow-fermented crust, imported ingredients,
+            and a dark, elevated dining experience that feels unmistakably New York.
+          </p>
+          <div class="hero-actions">
+            <a href="#menu" class="btn btn-luxe">Explore Signature Pies</a>
+            <a href="#visit" class="btn btn-outline-luxe">Visit Tonight</a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat-chip">
+              <span class="value">48h</span>
+              <span class="label">Slow-fermented dough</span>
+            </div>
+            <div class="stat-chip">
+              <span class="value">900°</span>
+              <span class="label">Stone oven finish</span>
+            </div>
+            <div class="stat-chip">
+              <span class="value">4.9★</span>
+              <span class="label">Guest satisfaction</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5 reveal visible">
+          <div class="hero-card">
+            <div class="mini-label">Chef's Feature</div>
+            <div class="featured-pizza">
+              <div>
+                <h3>Black Truffle Bianca</h3>
+                <p>Fior di latte, whipped ricotta, roasted mushroom, truffle cream, lemon zest, and cracked pepper.</p>
+                <div class="price-badge">$28</div>
+              </div>
+            </div>
+            <div class="row g-3 mt-1">
+              <div class="col-6">
+                <div class="glass-panel p-3 h-100">
+                  <div class="mini-label mb-2">Best Pairing</div>
+                  <div class="fw-bold fs-5">Smoked Negroni</div>
+                  <div class="text-secondary" style="color: var(--muted) !important;">Blood orange · rosemary · barrel
+                    notes</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="glass-panel p-3 h-100">
+                  <div class="mini-label mb-2">Tonight</div>
+                  <div class="fw-bold fs-5">Open Until 11</div>
+                  <div class="text-secondary" style="color: var(--muted) !important;">Dining room · pickup · local
+                    delivery</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="container-premium">
+      <div class="section-heading reveal">
+        <div>
+          <div class="mini-label">Signature Menu</div>
+          <h2>Designed to feel premium, not ordinary.</h2>
+        </div>
+        <p>
+          This menu layout is built to sell. It leads with high-margin signature items, creates appetite with
+          descriptive copy,
+          and gives the whole brand a polished agency-level look.
+        </p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="glass-panel menu-card">
+            <div class="menu-top">
+              <div>
+                <h3>Margherita Royale</h3>
+                <p>San Marzano tomato, fresh mozzarella, basil oil, sea salt finish.</p>
+              </div>
+              <div class="menu-price">$22</div>
+            </div>
+            <div class="menu-meta">A clean, iconic flagship pie that instantly communicates quality.</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="glass-panel menu-card">
+            <div class="menu-top">
+              <div>
+                <h3>Vodka Fire Pepperoni</h3>
+                <p>Vodka sauce, cup-and-char pepperoni, hot honey, pecorino cloud.</p>
+              </div>
+              <div class="menu-price">$26</div>
+            </div>
+            <div class="menu-meta">Bold contrast and visual drama for the “Instagram order.”</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="glass-panel menu-card">
+            <div class="menu-top">
+              <div>
+                <h3>Black Truffle Bianca</h3>
+                <p>Whipped ricotta, roasted mushroom, truffle cream, lemon zest.</p>
+              </div>
+              <div class="menu-price">$28</div>
+            </div>
+            <div class="menu-meta">Luxury anchor item that raises perceived brand value.</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="glass-panel menu-card">
+            <div class="menu-top">
+              <div>
+                <h3>Burrata After Dark</h3>
+                <p>Charred tomato, basil silk, imported burrata, balsamic reduction.</p>
+              </div>
+              <div class="menu-price">$25</div>
+            </div>
+            <div class="menu-meta">Elegant plating language for a more upscale audience.</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="glass-panel menu-card">
+            <div class="menu-top">
+              <div>
+                <h3>Calabrian Heat</h3>
+                <p>Spicy salami, Calabrian chili, roasted red pepper, mozzarella.</p>
+              </div>
+              <div class="menu-price">$24</div>
+            </div>
+            <div class="menu-meta">A high-energy signature pie with mass appeal and heat.</div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4 reveal">
+          <div class="glass-panel menu-card">
+            <div class="menu-top">
+              <div>
+                <h3>Midnight Garden</h3>
+                <p>Wild arugula, zucchini ribbons, caramelized onion, smoked provolone.</p>
+              </div>
+              <div class="menu-price">$23</div>
+            </div>
+            <div class="menu-meta">A vegetarian option that still feels luxurious and desirable.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="signature-strip reveal">
+        <div class="signature-chip">Imported Italian Flour</div>
+        <div class="signature-chip">Slow Dough Fermentation</div>
+        <div class="signature-chip">Stone Oven Finish</div>
+        <div class="signature-chip">Craft Cocktails &amp; Wine</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="story">
+    <div class="container-premium">
+      <div class="story-wrap">
+        <div class="story-image reveal"></div>
+
+        <div>
+          <div class="section-heading reveal mb-3">
+            <div>
+              <div class="mini-label">Brand Story</div>
+              <h2>A pizzeria that feels like a destination.</h2>
+            </div>
+          </div>
+
+          <div class="glass-panel story-card reveal">
+            <div class="quote-mark">“</div>
+            <p>
+              The goal here is not just to sell pizza. It is to build desire, atmosphere, and memory. This layout uses
+              editorial spacing,
+              premium typography, glassmorphism, layered gradients, and cinematic imagery to make the brand feel
+              expensive.
+            </p>
+          </div>
+
+          <div class="story-grid">
+            <div class="glass-panel story-card reveal">
+              <h3>Luxury Positioning</h3>
+              <p>Playfair headlines and dark warm tones give the site a boutique hospitality look rather than a template
+                feel.</p>
+            </div>
+            <div class="glass-panel story-card reveal">
+              <h3>Built to Convert</h3>
+              <p>Calls to action are repeated in the right places so users move naturally toward ordering or reserving.
+              </p>
+            </div>
+            <div class="glass-panel story-card reveal">
+              <h3>NYC Energy</h3>
+              <p>The look blends old-world craft with modern Manhattan polish, which makes the brand feel memorable.</p>
+            </div>
+            <div class="glass-panel story-card reveal">
+              <h3>Agency-Level Feel</h3>
+              <p>Animation, layering, spacing, and image treatment create the kind of finish clients pay serious money
+                for.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container-premium">
+      <div class="section-heading reveal">
+        <div>
+          <div class="mini-label">Social Proof</div>
+          <h2>What the city says.</h2>
+        </div>
+        <p>Premium restaurants win with atmosphere and trust. This section adds both while breaking up the page
+          beautifully.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-4 reveal">
+          <div class="glass-panel review-card">
+            <small>Food Editor</small>
+            <h3>“One of the most beautiful dining rooms downtown.”</h3>
+            <p>The crust is blistered, airy, and deeply flavorful. Every detail feels considered.</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="glass-panel review-card">
+            <small>Local Guide</small>
+            <h3>“The truffle pie alone is worth the trip.”</h3>
+            <p>A polished, memorable experience that feels romantic, energetic, and distinctly New York.</p>
+          </div>
+        </div>
+        <div class="col-md-4 reveal">
+          <div class="glass-panel review-card">
+            <small>Weekend Crowd</small>
+            <h3>“Looks expensive. Tastes even better.”</h3>
+            <p>Exactly the kind of place you bring people when you want to impress them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reserve">
+    <div class="container-premium">
+      <div class="glass-panel reservation-band reveal">
+        <div class="reservation-inner">
+          <div class="reservation-copy">
+            <div class="mini-label">Reservations</div>
+            <h2>Turn visitors into booked tables.</h2>
+            <p>
+              This block is designed like a high-end restaurant landing page. It creates momentum and gives people an
+              immediate action to take.
+            </p>
+            <ul class="mini-list">
+              <li>Ideal for birthdays, dates, and small group dinners</li>
+              <li>Private dining and chef tasting events can be promoted here</li>
+              <li>Easy place to plug in OpenTable, Resy, or a custom booking flow</li>
+            </ul>
+          </div>
+
+          <div class="reservation-form-wrap">
+            <form class="row g-3">
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Full name" />
+              </div>
+              <div class="col-md-6">
+                <input type="email" class="form-control" placeholder="Email address" />
+              </div>
+              <div class="col-md-6">
+                <input type="date" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <select class="form-select">
+                  <option selected>Party size</option>
+                  <option>2 guests</option>
+                  <option>4 guests</option>
+                  <option>6 guests</option>
+                  <option>8+ guests</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <textarea class="form-control" rows="4"
+                  placeholder="Special requests, celebration notes, seating preferences"></textarea>
+              </div>
+              <div class="col-12 d-grid">
+                <button type="button" class="btn btn-luxe">Request Reservation</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="container-premium">
+      <div class="section-heading reveal">
+        <div>
+          <div class="mini-label">Visit Us</div>
+          <h2>Location, hours, and that final push to come in tonight.</h2>
+        </div>
+        <p>A strong contact section does more than list information. It closes the sale for people already interested.
+        </p>
+      </div>
+
+      <div class="contact-wrap">
+        <div class="glass-panel info-card reveal">
+          <h3>Hours</h3>
+          <ul class="hours-list">
+            <li><span>Monday – Thursday</span><span>4:00 PM – 10:00 PM</span></li>
+            <li><span>Friday</span><span>4:00 PM – 11:00 PM</span></li>
+            <li><span>Saturday</span><span>12:00 PM – 11:00 PM</span></li>
+            <li><span>Sunday</span><span>12:00 PM – 9:00 PM</span></li>
+          </ul>
+
+          <h3 class="mt-4">Contact</h3>
+          <ul class="contact-list">
+            <li><span>Address</span><span>214 Mulberry Street, New York, NY</span></li>
+            <li><span>Phone</span><span>(212) 555-0198</span></li>
+            <li><span>Email</span><span>hello@emberandstone.com</span></li>
+          </ul>
+        </div>
+
+        <div class="contact-map reveal">
+          <div class="glass-panel info-card w-100" style="background: rgba(7,7,7,0.62);">
+            <div class="mini-label">Neighborhood</div>
+            <h3>In the heart of downtown.</h3>
+            <p>Perfect for dinner before a night out, weekend catchups, or a long lingering meal with wine and great
+              pizza.</p>
+            <a href="#reserve" class="btn btn-outline-luxe mt-2">Plan Tonight</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container-premium footer-shell">
+      <div>
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <span class="brand-mark" style="width: 34px; height: 34px; font-size: 0.85rem;">E</span>
+          <strong>EMBER &amp; STONE</strong>
+        </div>
+        <div>Wood-fired luxury pizza with New York attitude.</div>
+      </div>
+      <div>© 2026 Ember &amp; Stone. Crafted for a premium hospitality brand.</div>
+    </div>
+  </footer>
+
+  <a href="#reserve" class="floating-cta">🍕 Reserve Now</a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    const links = document.querySelectorAll('.nav-link');
+    const sections = [...document.querySelectorAll('section[id]')];
+
+    window.addEventListener('scroll', () => {
+      const fromTop = window.scrollY + 120;
+      sections.forEach((section) => {
+        const link = document.querySelector(`.nav-link[href="#${section.id}"]`);
+        if (!link) return;
+        const inSection = fromTop >= section.offsetTop && fromTop < section.offsetTop + section.offsetHeight;
+        link.classList.toggle('active', inSection);
+      });
+    });
+  </script>
+</body>
+
+</html>
